@@ -17,7 +17,7 @@ namespace Microsoft.AspNetCore.Authentication.JwtBearer
         public Func<AuthenticationFailedContext, Task> OnAuthenticationFailed { get; set; } = context => Task.CompletedTask;
 
         /// <summary>
-        /// Invoked when a protocol message is first received.
+        /// Invoked when a protocol message is first received.   用于自定义Token的生成方式。
         /// </summary>
         public Func<MessageReceivedContext, Task> OnMessageReceived { get; set; } = context => Task.CompletedTask;
 
@@ -35,6 +35,11 @@ namespace Microsoft.AspNetCore.Authentication.JwtBearer
 
         public virtual Task MessageReceived(MessageReceivedContext context) => OnMessageReceived(context);
 
+        /// <summary>
+        /// 自定义Token时使用
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public virtual Task TokenValidated(TokenValidatedContext context) => OnTokenValidated(context);
 
         public virtual Task Challenge(JwtBearerChallengeContext context) => OnChallenge(context);
